@@ -8,7 +8,8 @@ export default function App({ Component }: PageProps) {
         <title>kondate-deno</title>
         <link rel="stylesheet" href="/styles.css" />
       </head>
-      <body>
+      {/* 背景色はグラデーションを使った、食欲のそそる色。薄い色 */}
+      <body class="bg-zinc-50">
         <Component />
       </body>
     </html>

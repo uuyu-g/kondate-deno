@@ -4,22 +4,32 @@
 
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
-import * as $api_joke from "./routes/api/joke.ts";
-import * as $greet_name_ from "./routes/greet/[name].tsx";
+import * as $_layout from "./routes/_layout.tsx";
+import * as $api_menus_id_ from "./routes/api/menus/[id].ts";
+import * as $api_menus_index from "./routes/api/menus/index.ts";
 import * as $index from "./routes/index.tsx";
+import * as $menus_id_ from "./routes/menus/[id].tsx";
+import * as $menus_new from "./routes/menus/new.tsx";
+import * as $menus_random from "./routes/menus/random.tsx";
 import * as $Counter from "./islands/Counter.tsx";
+import * as $ReloadButton from "./islands/ReloadButton.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
-    "./routes/api/joke.ts": $api_joke,
-    "./routes/greet/[name].tsx": $greet_name_,
+    "./routes/_layout.tsx": $_layout,
+    "./routes/api/menus/[id].ts": $api_menus_id_,
+    "./routes/api/menus/index.ts": $api_menus_index,
     "./routes/index.tsx": $index,
+    "./routes/menus/[id].tsx": $menus_id_,
+    "./routes/menus/new.tsx": $menus_new,
+    "./routes/menus/random.tsx": $menus_random,
   },
   islands: {
     "./islands/Counter.tsx": $Counter,
+    "./islands/ReloadButton.tsx": $ReloadButton,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

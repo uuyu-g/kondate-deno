@@ -1,0 +1,25 @@
+###
+
+GET http://localhost:8000/api/menus
+
+###
+
+POST http://localhost:8000/api/menus
+
+{
+    "name": "麻婆豆腐",
+    "description": ""
+}
+
+###
+
+GET http://localhost:8000/api/menus/01HKGV7MB7FRSWP4PDSA6EN39Z
+
+###
+
+PUT http://localhost:8000/api/menus/01HKGV881E13S95ZPR3VX5YR0T
+
+{
+    "name": "麻婆豆腐",
+    "description": "好き"
+}
