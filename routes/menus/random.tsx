@@ -31,7 +31,7 @@ export default async function Home() {
   return (
     <div class="flex flex-col h-full">
       <div class="flex-1 flex flex-col gap-6">
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-4">
           {menus.map((menu) => <MenuCard key={menu.id} menu={menu} />)}
         </div>
       </div>
