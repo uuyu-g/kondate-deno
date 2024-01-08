@@ -1,1 +1,1 @@
-export const kv = await Deno.openKv("temp.db");
+export const kv = await Deno.openKv();
