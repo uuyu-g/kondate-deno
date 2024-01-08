@@ -27,7 +27,7 @@ export const handler: Handlers<
       return ctx.render({
         description,
         errors: {
-          name: "Missing name",
+          name: "名前を入力してください",
         },
       });
     }
@@ -45,10 +45,11 @@ export default function New(props: PageProps<Data>) {
   } = props.data ?? {};
 
   return (
-    <form method="post" class="flex flex-col gap-8 h-full">
+    <form method="post" class="flex flex-col h-full justify-center">
       <div class="flex-1 flex flex-col gap-4">
+        <h2>新しい献立を追加</h2>
         <div>
-          <label class="flex flex-col gap-1">
+          <label required class="flex flex-col gap-1">
             名前
             <input type="text" name="name" />
           </label>

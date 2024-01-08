@@ -8,19 +8,9 @@ const TITLE_MAP: Record<string, string> = {
 export default function Layout({ Component, route }: PageProps) {
   if (route === "/") {
     return (
-      <>
-        <header class="h-1/2 flex flex-col justify-center items-center">
-          <h1 class="text-6xl border-2
-            border-solid border-zinc-900 rounded-md
-            px-8 py-6
-          ">
-            kon-date
-          </h1>
-        </header>
-        <main class="flex-1">
-          <Component />
-        </main>
-      </>
+      <main class="h-full">
+        <Component />
+      </main>
     );
   }
 
