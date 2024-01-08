@@ -9,7 +9,7 @@ import * as $api_menus_id_ from "./routes/api/menus/[id].ts";
 import * as $api_menus_index from "./routes/api/menus/index.ts";
 import * as $history_index from "./routes/history/index.tsx";
 import * as $index from "./routes/index.tsx";
-import * as $menus_id_ from "./routes/menus/[id].tsx";
+import * as $menus_name_ from "./routes/menus/[name].tsx";
 import * as $menus_new from "./routes/menus/new.tsx";
 import * as $menus_random from "./routes/menus/random.tsx";
 import * as $Counter from "./islands/Counter.tsx";
@@ -25,7 +25,7 @@ const manifest = {
     "./routes/api/menus/index.ts": $api_menus_index,
     "./routes/history/index.tsx": $history_index,
     "./routes/index.tsx": $index,
-    "./routes/menus/[id].tsx": $menus_id_,
+    "./routes/menus/[name].tsx": $menus_name_,
     "./routes/menus/new.tsx": $menus_new,
     "./routes/menus/random.tsx": $menus_random,
   },

@@ -1,4 +1,4 @@
-import { MenuHistory } from "model/MenuHistory.tsx";
+import { MenuHistory } from "../../model/MenuHistory.ts";
 
 export default async function History() {
   const menuHistory = await MenuHistory.recentFromDB();
@@ -31,11 +31,23 @@ export default async function History() {
                 ({dayOfWeek})
               </div>
 
-              {[h.breakfast, h.lunch, h.dinner].map((m) => (
-                <div class="bg-zinc-100 flex flex-col items-center justify-center p-1 rounded">
-                  {m}
-                </div>
-              ))}
+              {[h.breakfast, h.lunch, h.dinner].map((m) => {
+                if (!m) {
+                  return (
+                    <div class="bg-zinc-100 flex flex-col items-center justify-center p-1 rounded">
+                    </div>
+                  );
+                }
+
+                return (
+                  <a
+                    href={`/menus/${m}`}
+                    class="bg-zinc-100 flex flex-col items-center justify-center p-1 rounded no-underline"
+                  >
+                    {m}
+                  </a>
+                );
+              })}
             </>
           );
         })}

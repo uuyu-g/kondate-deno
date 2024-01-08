@@ -13,18 +13,16 @@ type UpdateMenuParams = {
 };
 
 export class Menu {
-  id: string;
   name: string;
   description: string;
 
   constructor(name: string, description: string) {
-    this.id = ulid();
     this.name = name;
     this.description = description;
   }
 
-  static async find(id: string): Promise<Menu | null> {
-    return (await kv.get<Menu>(["menus", id])).value;
+  static async find(name: string): Promise<Menu | null> {
+    return (await kv.get<Menu>(["menus", name])).value;
   }
 
   static all(): Promise<Menu[]> {
@@ -33,15 +31,15 @@ export class Menu {
 
   static async create({ name, description }: CreateMenuParams): Promise<Menu> {
     const menu = new Menu(name, description);
-    const menuKey = ["menus", menu.id];
+    const menuKey = ["menus", menu.name];
     const ok = await kv.set(menuKey, menu);
     if (!ok) throw new Error("Something went wrong.");
     return menu;
   }
 
-  static async update(id: string, { name, description }: UpdateMenuParams) {
-    const newMenu = new Menu(name, description);
-    const menuKey = ["menus", id];
+  static async update(params: UpdateMenuParams) {
+    const newMenu = new Menu(params.name, params.description);
+    const menuKey = ["menus", params.name];
     const ok = await kv.set(menuKey, newMenu);
     if (!ok) throw new Error("Something went wrong.");
     return newMenu;

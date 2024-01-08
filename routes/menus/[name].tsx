@@ -1,6 +1,10 @@
 import { Handlers, RouteContext } from "$fresh/server.ts";
 import { Menu } from "model/Menu.ts";
-import { MealType, MenuHistory, toDateString } from "model/MenuHistory.tsx";
+import {
+  MealType,
+  MenuHistory,
+  toDateString,
+} from "../../model/MenuHistory.ts";
 import { redirect } from "utils/redirect.tsx";
 
 const validate = (
@@ -40,7 +44,7 @@ export const handler: Handlers = {
 };
 
 export default async function Show(_req: Request, ctx: RouteContext) {
-  const menu = await Menu.find(ctx.params.id);
+  const menu = await Menu.find(decodeURIComponent(ctx.params.name));
 
   if (!menu) {
     return (

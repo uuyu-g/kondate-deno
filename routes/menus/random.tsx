@@ -12,7 +12,7 @@ const Card = ({ children }: { children: ComponentChildren }) => {
 
 const MenuCard = ({ menu }: { menu: Menu }) => {
   return (
-    <a href={`/menus/${menu.id}`} class="no-underline">
+    <a href={`/menus/${menu.name}`} class="no-underline">
       <Card>
         <div class="flex justify-center items-center flex-col h-full text-zinc-700">
           <p class="text-3xl font-bold">
@@ -32,7 +32,7 @@ export default async function Home() {
     <div class="flex flex-col h-full">
       <div class="flex-1 flex flex-col gap-6">
         <div className="flex flex-col gap-4">
-          {menus.map((menu) => <MenuCard key={menu.id} menu={menu} />)}
+          {menus.map((menu) => <MenuCard key={menu.name} menu={menu} />)}
         </div>
       </div>
       <div class="flex flex-col gap-4 items-center w-full">
