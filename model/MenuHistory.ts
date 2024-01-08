@@ -14,6 +14,13 @@ export type RecentMenuHistory = {
   dinner: string | null;
 };
 
+// 引数の日数分前の日付を返す
+const getPreviousDate = (date: Date, days: number) => {
+  const previousDate = new Date(date);
+  previousDate.setDate(previousDate.getDate() - days);
+  return previousDate;
+};
+
 export class MenuHistory {
   id: string;
   date: Date;
@@ -41,58 +48,46 @@ export class MenuHistory {
     return menuHistory;
   }
 
-  static async recentFromDB(): Promise<RecentMenuHistory[]> {
+  static async recent(): Promise<RecentMenuHistory[]> {
     const menuHistoryKey = ["menuHistories"];
-    const aWeekAgo = new Date();
-    aWeekAgo.setDate(aWeekAgo.getDate() - 7);
-    const menuHistory: MenuHistory[] = await toArray(
+    const aWeekAgo = getPreviousDate(new Date(), 7);
+    const menuHistories: MenuHistory[] = await toArray(
       kv.list<MenuHistory>({
         prefix: menuHistoryKey,
         start: [...menuHistoryKey, toDateString(aWeekAgo)],
       }),
     );
-    const map = menuHistory.reduce((acc, cur) => {
-      const { date, mealType, menu } = cur;
-      const dateStr = toDateString(date);
-      const historyMap: Map<string, {
-        breakfast: string | null;
-        lunch: string | null;
-        dinner: string | null;
-      }> = acc;
-      const history = historyMap.get(dateStr) ?? {
-        breakfast: null,
-        lunch: null,
-        dinner: null,
-      };
-      history[mealType] = menu;
-      historyMap.set(dateStr, history);
-      return historyMap;
-    }, new Map());
-    const result = [...map.entries()].map(([date, menus]) => ({
-      date,
-      ...menus,
-    }));
-    // 直近7日分のデータを返す
-    // 一週間のうちデータがない日はnullで埋める
-    const today = new Date();
-    const result2 = [];
-    for (let i = 0; i < 7; i++) {
-      const date = new Date(today);
-      date.setDate(date.getDate() - i);
-      const dateStr = toDateString(date);
-      const menu = result.find((h) => h.date === dateStr);
-      if (menu) {
-        result2.push(menu);
-      } else {
-        result2.push({
+    const menuHistoryMap: Map<string, RecentMenuHistory> = menuHistories.reduce(
+      (historyMap, cur) => {
+        const { date, mealType, menu } = cur;
+        const dateStr = toDateString(date);
+        const history = historyMap.get(dateStr) ?? {
           date: dateStr,
           breakfast: null,
           lunch: null,
           dinner: null,
-        });
-      }
+        };
+        history[mealType] = menu;
+        historyMap.set(dateStr, history);
+        return historyMap;
+      },
+      new Map<string, RecentMenuHistory>(),
+    );
+
+    // 直近7日分のデータを返す
+    // 一週間のうちデータがない日はnullで埋める
+    const result = [];
+    for (let i = 0; i < 7; i++) {
+      const dateStr = toDateString(getPreviousDate(new Date(), i));
+      const recentMenuHistory = menuHistoryMap.get(dateStr) ?? {
+        date: dateStr,
+        breakfast: null,
+        lunch: null,
+        dinner: null,
+      };
+      result.push(recentMenuHistory);
     }
-    return result2;
+    return result;
   }
 
   static async create(
@@ -114,28 +109,3 @@ export class MenuHistory {
     return menuHistory;
   }
 }
-
-const menuHistory: MenuHistory[] = [
-  new MenuHistory(new Date("2024-01-01"), "breakfast", "ごはん"),
-  new MenuHistory(new Date("2024-01-01"), "lunch", "うどん"),
-  new MenuHistory(new Date("2024-01-01"), "dinner", "カレー"),
-  new MenuHistory(new Date("2024-01-02"), "breakfast", "ごはん"),
-  new MenuHistory(new Date("2024-01-02"), "lunch", "うどん"),
-  new MenuHistory(new Date("2024-01-02"), "dinner", "カレー"),
-  new MenuHistory(new Date("2024-01-03"), "breakfast", "ごはん"),
-  new MenuHistory(new Date("2024-01-03"), "lunch", "うどん"),
-  new MenuHistory(new Date("2024-01-03"), "dinner", "カレー"),
-  new MenuHistory(new Date("2024-01-04"), "breakfast", "ごはん"),
-  new MenuHistory(new Date("2024-01-04"), "lunch", "うどん"),
-  new MenuHistory(new Date("2024-01-04"), "dinner", "カレー"),
-  new MenuHistory(new Date("2024-01-05"), "breakfast", "ごはん"),
-  new MenuHistory(new Date("2024-01-05"), "lunch", "うどん"),
-  new MenuHistory(new Date("2024-01-05"), "dinner", "カレー"),
-  new MenuHistory(new Date("2024-01-06"), "breakfast", "ごはん"),
-  new MenuHistory(new Date("2024-01-06"), "lunch", "うどん"),
-  new MenuHistory(new Date("2024-01-06"), "dinner", "カレー"),
-  new MenuHistory(new Date("2024-01-07"), "breakfast", "ごはん"),
-  new MenuHistory(new Date("2024-01-07"), "lunch", "うどん"),
-  new MenuHistory(new Date("2024-01-07"), "dinner", "カレー"),
-  new MenuHistory(new Date("2024-01-08"), "breakfast", "ごはん"),
-];

@@ -1,4 +1,3 @@
-import { ulid } from "https://deno.land/x/ulid@v0.3.0/mod.ts";
 import { toArray } from "utils/toArray.ts";
 import { kv } from "model/db.ts";
 

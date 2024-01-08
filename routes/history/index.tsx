@@ -1,8 +1,7 @@
 import { MenuHistory } from "../../model/MenuHistory.ts";
 
 export default async function History() {
-  const menuHistory = await MenuHistory.recentFromDB();
-  console.log(menuHistory);
+  const menuHistory = await MenuHistory.recent();
 
   return (
     <div>

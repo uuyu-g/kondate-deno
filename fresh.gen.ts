@@ -7,6 +7,7 @@ import * as $_app from "./routes/_app.tsx";
 import * as $_layout from "./routes/_layout.tsx";
 import * as $api_menus_id_ from "./routes/api/menus/[id].ts";
 import * as $api_menus_index from "./routes/api/menus/index.ts";
+import * as $history_date_ from "./routes/history/[date].tsx";
 import * as $history_index from "./routes/history/index.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $menus_name_ from "./routes/menus/[name].tsx";
@@ -23,6 +24,7 @@ const manifest = {
     "./routes/_layout.tsx": $_layout,
     "./routes/api/menus/[id].ts": $api_menus_id_,
     "./routes/api/menus/index.ts": $api_menus_index,
+    "./routes/history/[date].tsx": $history_date_,
     "./routes/history/index.tsx": $history_index,
     "./routes/index.tsx": $index,
     "./routes/menus/[name].tsx": $menus_name_,

@@ -1,10 +1,6 @@
 import { Handlers, RouteContext } from "$fresh/server.ts";
 import { Menu } from "model/Menu.ts";
-import {
-  MealType,
-  MenuHistory,
-  toDateString,
-} from "../../model/MenuHistory.ts";
+import { MealType, MenuHistory, toDateString } from "model/MenuHistory.ts";
 import { redirect } from "utils/redirect.tsx";
 
 const validate = (
@@ -65,9 +61,16 @@ export default async function Show(_req: Request, ctx: RouteContext) {
           name="date"
           value={toDateString(new Date())}
         />
-        <input type="text" hidden name="mealType" value="breakfast" />
         <input type="text" hidden name="menu" value={menu.name} />
-        <button>食べた</button>
+        <div class="flex justify-between space-x-3">
+          <button name="mealType" value="breakfast" class="w-full">
+            朝食べた
+          </button>
+          <button name="mealType" value="lunch" class="w-full">昼食べた</button>
+          <button name="mealType" value="dinner" class="w-full">
+            夜食べた
+          </button>
+        </div>
       </form>
     </div>
   );
