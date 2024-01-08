@@ -6,19 +6,36 @@ const TITLE_MAP: Record<string, string> = {
 };
 
 export default function Layout({ Component, route }: PageProps) {
+  if (route === "/") {
+    return (
+      <>
+        <header class="h-1/2 flex flex-col justify-center items-center">
+          <h1 class="text-6xl border-2
+            border-solid border-zinc-900 rounded-md
+            px-8 py-6
+          ">
+            kon-date
+          </h1>
+        </header>
+        <main class="flex-1">
+          <Component />
+        </main>
+      </>
+    );
+  }
+
   return (
-    <div class="p-4">
-      <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold">
-          <a href="/">Kondate</a>
-        </h1>
-        {TITLE_MAP[route] && (
-          <h2 class="text-lg">
-            {TITLE_MAP[route]}
-          </h2>
-        )}
-      </div>
-      <Component />
-    </div>
+    <>
+      <header class="font-bold py-1 mb-2">
+        <a href="/" class="no-underline">
+          <h1 class="inline-block py-1 px-3 rounded text-2xl border border-solid border-zinc-900">
+            kon-date
+          </h1>
+        </a>
+      </header>
+      <main class="flex-1">
+        <Component />
+      </main>
+    </>
   );
 }
