@@ -1,14 +1,6 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { Menu } from "model/Menu.ts";
-
-const redirect = (location: string) => {
-  const headers = new Headers();
-  headers.set("location", location);
-  return new Response(null, {
-    status: 303,
-    headers,
-  });
-};
+import { redirect } from "utils/redirect.tsx";
 
 type Data = Partial<
   Menu & {

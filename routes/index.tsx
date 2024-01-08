@@ -30,7 +30,7 @@ export default function Home() {
           </div>
           <div>
             <a
-              href="#"
+              href="history"
               class="button h-full flex flex-col justify-center items-center text-5xl font-bold bg-white border border-solid border-zinc-400 text-zinc-500 rounded-lg"
             >
               🗓
